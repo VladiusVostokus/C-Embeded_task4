@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct bookData{
+typedef struct BookData { 
    char name[30];
    float price;
    int pages;
@@ -9,6 +9,12 @@ typedef struct bookData{
    float weight;
    int publYear;
 } book;
+
+
+typedef struct LinkedList {
+    book *info;
+    size_t nextP;
+} list ;
 
 int main() {
    printf("Hello, World!\n");
