@@ -17,12 +17,15 @@ typedef struct LinkedList {
 } list ;
 
 list * listInit(char *name, float prise, int pages, char *language, float weight, int publYear);
+list * addNode(list *lp, char *name, float prise, int pages, char *language, float weight, int publYear);
 
 int main() {
     list* head;
     head = listInit("aaa", 200.0, 350, "ua", 1.34, 2002);
+    head = addNode(head, "bbb", 222.0, 333, "en", 3.14, 1984);
     return 0;
 }
+
 
 list * listInit(char *name, float prise, int pages, char *language, float weight, int publYear) {
     list *lp;
@@ -47,8 +50,35 @@ list * listInit(char *name, float prise, int pages, char *language, float weight
         lp->info.weight,
         lp->info.publYear
         );
-    return lp;
     */
+    return lp;
+}
+
+list * addNode(list *lp, char *name, float prise, int pages, char *language, float weight, int publYear) {
+    struct LinkedList *nodeP;
+    nodeP = malloc(sizeof(struct LinkedList));
+    nodeP->info = (book){
+        .name = name,
+        .price = prise,
+        .pages = pages,
+        .language = language,
+        .weight = weight,
+        .publYear = publYear
+    };
+    nodeP->nextP = lp;
+    /*
+    printf("ptr = %d,next = %d,name = %s,prise = %.2f,pages = %d,language = %s,weight = %.2f,pubYear = %d\n",
+        nodeP,
+        nodeP->nextP, 
+        nodeP->info.name,
+        nodeP->info.price,
+        nodeP->info.pages,
+        nodeP->info.language,
+        nodeP->info.weight,
+        nodeP->info.publYear
+        );
+    */
+    return nodeP;
 }
 
 /*
