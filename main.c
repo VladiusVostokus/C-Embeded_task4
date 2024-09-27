@@ -2,23 +2,53 @@
 #include <stdlib.h>
 
 typedef struct BookData { 
-   char name[30];
+   char *name;
    float price;
    int pages;
-   char language[30];
+   char *language;
    float weight;
    int publYear;
 } book;
 
 
 typedef struct LinkedList {
-    book *info;
+    book info;
     size_t nextP;
 } list ;
 
+list * listInit(char *name, float prise, int pages, char *language, float weight, int publYear);
+
 int main() {
-   printf("Hello, World!\n");
-   return 0;
+    list* head;
+    head = listInit("aaa", 200.0, 350, "ua", 1.34, 2002);
+    return 0;
+}
+
+list * listInit(char *name, float prise, int pages, char *language, float weight, int publYear) {
+    list *lp;
+    lp = malloc(sizeof(struct LinkedList));
+    lp->info = (book){
+        .name = name,
+        .price = prise,
+        .pages = pages,
+        .language = language,
+        .weight = weight,
+        .publYear = publYear
+    };
+    lp->nextP = NULL;
+
+    /*
+    printf("ptr = %d,next = %d,name = %s,prise = %.2f,pages = %d,language = %s,weight = %.2f,pubYear = %d\n",
+        lp,lp->nextP, 
+        lp->info.name,
+        lp->info.price,
+        lp->info.pages,
+        lp->info.language,
+        lp->info.weight,
+        lp->info.publYear
+        );
+    return lp;
+    */
 }
 
 /*
