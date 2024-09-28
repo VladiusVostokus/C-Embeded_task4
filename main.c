@@ -18,15 +18,18 @@ typedef struct LinkedList {
 
 list * listInit(char *name, float prise, int pages, char *language, float weight, int publYear);
 list * addNode(list *lp, char *name, float prise, int pages, char *language, float weight, int publYear);
+list * printList(list *lp);
 void listDel(list *lp);
 
 int main() {
     list* head;
-    head = listInit("aaa", 200.0, 350, "ua", 1.34, 2002);
-    head = addNode(head, "bbb", 222.0, 333, "en", 3.14, 1984);
-    head = addNode(head, "ccc", 111.0, 444, "ja", 2.00, 222);
+    head = listInit("Harry Potter and the Philosopher's Stone",       200.45, 350, "ua", 1.34, 1997);
+    head = addNode(head, "Harry Potter and the Chamber of Secrets",   222.50, 333, "eng", 3.14, 1998);
+    head = addNode(head, "Harry Potter and the Prisoner of Azkaban",  333.15, 434, "ger", 2.00, 1999);
+    head = addNode(head, "Harry Potter and the Goblet of Fire",       123.45, 222, "eng", 1.98, 2000);
+    head = addNode(head, "Harry Potter and the Order of the Phoenix", 321.01, 444, "eng", 1.11, 2003);
+    printList(head);
     listDel(head);
-
     return 0;
 }
 
@@ -43,18 +46,6 @@ list * listInit(char *name, float prise, int pages, char *language, float weight
         .publYear = publYear
     };
     lp->nextP = NULL;
-
-    
-    printf("ptr = %d,next = %d,name = %s,prise = %.2f,pages = %d,language = %s,weight = %.2f,pubYear = %d\n",
-        lp,lp->nextP, 
-        lp->info.name,
-        lp->info.price,
-        lp->info.pages,
-        lp->info.language,
-        lp->info.weight,
-        lp->info.publYear
-        );
-    
     return lp;
 }
 
@@ -71,24 +62,13 @@ list * addNode(list *lp, char *name, float prise, int pages, char *language, flo
     };
     nodeP->nextP = lp;
     
-    printf("ptr = %d,next = %d,name = %s,prise = %.2f,pages = %d,language = %s,weight = %.2f,pubYear = %d\n",
-        nodeP,
-        nodeP->nextP, 
-        nodeP->info.name,
-        nodeP->info.price,
-        nodeP->info.pages,
-        nodeP->info.language,
-        nodeP->info.weight,
-        nodeP->info.publYear
-        );
-    
     return nodeP;
 }
 
 void listDel(list *lp) {
     while(1) {
         size_t nodeP = lp->nextP;
-        printf("ptr=%d  next=%d\n", lp, lp->nextP);
+        //printf("ptr=%d  next=%d\n", lp, lp->nextP);
         free(lp);
         lp = nodeP;
         if(!lp) {
@@ -97,27 +77,19 @@ void listDel(list *lp) {
     }
 }
 
-
-/*
-Мета роботи - отримати початкові навички роботи з С
-
-Створити додаток який виводить на екран інформацію про серію книг про Гарі Поттера.
-Інформація о книгах повинна міститися в зв'язаному списку.
-
-Що таке зв'язаний список
-https://www.tutorialspoint.com/data_structures_algorithms/linked_list_algorithms.htm
-https://www.programiz.com/dsa/linked-list
-
-Кожен елемент повинен містити наступну інформацію:
-
-    назва книги;
-    ціна;
-    число сторінок;
-    мова;
-    вага;
-    рік видання.
-
-Звіт виконання - додати:
-1) посилання на додаток в вашому Git репозиторії
-2) скріншот виконнання додатку.
-*/
+list * printList(list *lp) {
+    size_t firstNode = lp;
+    while(lp) {
+        printf("name = %s\nprise = %.2f\npages = %d\nlanguage = %s\nweight = %.2f\npubYear = %d\n",
+            lp->info.name,
+            lp->info.price,
+            lp->info.pages,
+            lp->info.language,
+            lp->info.weight,
+            lp->info.publYear
+        );
+        lp = lp->nextP;
+        printf("\n");
+    }
+    return firstNode;
+}
