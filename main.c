@@ -18,11 +18,15 @@ typedef struct LinkedList {
 
 list * listInit(char *name, float prise, int pages, char *language, float weight, int publYear);
 list * addNode(list *lp, char *name, float prise, int pages, char *language, float weight, int publYear);
+void listDel(list *lp);
 
 int main() {
     list* head;
     head = listInit("aaa", 200.0, 350, "ua", 1.34, 2002);
     head = addNode(head, "bbb", 222.0, 333, "en", 3.14, 1984);
+    head = addNode(head, "ccc", 111.0, 444, "ja", 2.00, 222);
+    listDel(head);
+
     return 0;
 }
 
@@ -40,7 +44,7 @@ list * listInit(char *name, float prise, int pages, char *language, float weight
     };
     lp->nextP = NULL;
 
-    /*
+    
     printf("ptr = %d,next = %d,name = %s,prise = %.2f,pages = %d,language = %s,weight = %.2f,pubYear = %d\n",
         lp,lp->nextP, 
         lp->info.name,
@@ -50,7 +54,7 @@ list * listInit(char *name, float prise, int pages, char *language, float weight
         lp->info.weight,
         lp->info.publYear
         );
-    */
+    
     return lp;
 }
 
@@ -66,7 +70,7 @@ list * addNode(list *lp, char *name, float prise, int pages, char *language, flo
         .publYear = publYear
     };
     nodeP->nextP = lp;
-    /*
+    
     printf("ptr = %d,next = %d,name = %s,prise = %.2f,pages = %d,language = %s,weight = %.2f,pubYear = %d\n",
         nodeP,
         nodeP->nextP, 
@@ -77,9 +81,22 @@ list * addNode(list *lp, char *name, float prise, int pages, char *language, flo
         nodeP->info.weight,
         nodeP->info.publYear
         );
-    */
+    
     return nodeP;
 }
+
+void listDel(list *lp) {
+    while(1) {
+        size_t nodeP = lp->nextP;
+        printf("ptr=%d  next=%d\n", lp, lp->nextP);
+        free(lp);
+        lp = nodeP;
+        if(!lp) {
+            break;
+        }
+    }
+}
+
 
 /*
 Мета роботи - отримати початкові навички роботи з С
